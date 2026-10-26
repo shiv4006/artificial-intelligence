@@ -25,22 +25,25 @@ def chatbot():
     )
 
     reply = ""
+    usage = None
     for chunk in stream:
+        if chunk.usage:
+            usage = chunk.usage
+            
         if not chunk.choices:
             continue
         
         # print("Chunk: ", chunk)
         text = chunk.choices[0].delta.content
-        usage = chunk.usage
         
         if text:
             print(text, end="", flush=True)
             reply += text
         
-        if usage:
-            print()
-            print("Prompt Tokens: ", usage.prompt_tokens)
-            print("Completion Tokens: ", usage.completion_tokens)
+    if usage:
+        print()
+        print("Prompt Tokens: ", usage.prompt_tokens)
+        print("Completion Tokens: ", usage.completion_tokens)
             
     print()
     assistant_message = {
