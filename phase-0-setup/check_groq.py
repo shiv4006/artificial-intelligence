@@ -13,5 +13,8 @@ if not key:
 
 client = OpenAI(api_key=key, base_url="https://api.groq.com/openai/v1")
 
-for model in sorted(client.models.list(), key=lambda m: m.id):
-    print(model.id)
+if __name__ == "__main__":
+    models = client.models.list()
+    
+    for model in sorted(models, key=lambda m: m.id):
+        print(model.id)
