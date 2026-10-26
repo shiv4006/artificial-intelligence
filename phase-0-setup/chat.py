@@ -4,25 +4,45 @@ model = "openai/gpt-oss-20b"
 messages = [
     {
         "role": "system",
-        "content": "You are a principal software engineer."  
-    },
-    {
-        "role": "user",
-        "content": "Explain how HTTP works in about 200 words."
+        "content": "Answer user question under 200 words only."  
     }
 ]
 
-stream = client.chat.completions.create(model=model, messages=messages, stream=True, reasoning_effort="low",)
+# Calling Function
+def chatbot():
+    stream = client.chat.completions.create(model=model, messages=messages, stream=True, reasoning_effort="low",)
 
-reply = ""
-for chunk in stream:
-    if not chunk.choices:
-        continue
+    reply = ""
+    for chunk in stream:
+        if not chunk.choices:
+            continue
+        
+        text = chunk.choices[0].delta.content
+        
+        if text:
+            print(text, end="", flush=True)
+            reply += text
+        
+    print()
+    assistant_message = {
+        "role": "assistant",
+        "content": reply
+    }
     
-    text = chunk.choices[0].delta.content
+    messages.append(assistant_message)
     
-    if text:
-        print(text, end="", flush=True)
-        reply += text
+# Entry Point
+while(True):
+    user_input = input("Ask you question or -1 to exit: ")
     
-print()
+    if (user_input == "-1"):
+        break
+    else:
+        user_message = {
+            "role": "user",
+            "content": user_input
+        }
+
+        messages.append(user_message)
+        chatbot()
+    
