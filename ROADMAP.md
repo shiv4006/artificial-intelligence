@@ -108,29 +108,29 @@ You learn each idea by building something that needs it, not by reading about it
 - [ ] Jupyter basics: run cells, restart the kernel, use a notebook as your experiment lab
 
 ### Build: `chat.py`
-- [ ] One API call: use the `openai` SDK with `base_url="https://api.groq.com/openai/v1"` and your Groq key, send "hello", print the reply
-- [ ] Chat loop: read input, append it to a `messages` list, call the API, print the reply, append it
-- [ ] Stream the reply token by token
-- [ ] Take the system prompt from a CLI flag
-- [ ] Take the model from a CLI flag (`llama-3.1-8b-instant`, `openai/gpt-oss-120b`, …)
-- [ ] Print input tokens, output tokens and cost for each turn (from the response's `usage` field, priced with Groq's pricing page, even on the free tier)
-- [ ] Point the same code at local Ollama by changing only `base_url` to `http://localhost:11434/v1`
+- [1] One API call: use the `openai` SDK with `base_url="https://api.groq.com/openai/v1"` and your Groq key, send "hello", print the reply
+- [1] Chat loop: read input, append it to a `messages` list, call the API, print the reply, append it
+- [1] Stream the reply token by token
+- [1] Take the system prompt from a CLI flag
+- [1] Take the model from a CLI flag (`llama-3.1-8b-instant`, `openai/gpt-oss-120b`, …)
+- [1] Print input tokens, output tokens and cost for each turn (from the response's `usage` field, priced with Groq's pricing page, even on the free tier)
+- [1] Point the same code at local Ollama by changing only `base_url` to `http://localhost:11434/v1`
 
 ### Experiments
-- [ ] Run the same prompt 5 times at temperature 0 and 5 times at 1, and note the differences
-- [ ] Clear `messages` mid-chat, watch the model "forget", and write one line on why
-- [ ] Ask `llama-3.1-8b-instant` and `openai/gpt-oss-120b` the same 5 questions; compare quality and tokens per second
-- [ ] Ask a local Ollama model the same 5 questions; compare it with Groq on quality and speed
+- [1] Run the same prompt 5 times at temperature 0 and 5 times at 1, and note the differences
+- [1] Clear `messages` mid-chat, watch the model "forget", and write one line on why
+- [1] Ask `llama-3.1-8b-instant` and `openai/gpt-oss-120b` the same 5 questions; compare quality and tokens per second
+- [1] Ask a local Ollama model the same 5 questions; compare it with Groq on quality and speed
 - [ ] Make calls in a tight loop until you hit a 429 rate-limit error; read the response headers that say when to retry
-- [ ] Tokenize an English sentence, code, JSON, emoji and non-English text with tiktoken; compare token counts
+- [1] Tokenize an English sentence, code, JSON, emoji and non-English text with tiktoken; compare token counts
 
 ### You can explain
-- [ ] What a token is, and why pricing and limits are counted in tokens
-- [ ] Why the model is stateless, and how chat "memory" actually works
-- [ ] What temperature does
+- [1] What a token is, and why pricing and limits are counted in tokens
+- [1] Why the model is stateless, and how chat "memory" actually works
+- [1] What temperature does
 
 ### Done when
-- [ ] `chat.py` works with an API model and a local model, shows the cost of each turn, and is on GitHub
+- [1] `chat.py` works with an API model and a local model, shows the cost of each turn, and is on GitHub
 
 ---
 
