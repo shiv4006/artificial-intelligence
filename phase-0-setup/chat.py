@@ -1,28 +1,47 @@
+import argparse
 from check_groq import client
 
-model = "openai/gpt-oss-20b"
+parser = argparse.ArgumentParser(description="Terminal Chatbot")
+
+# model = "openai/gpt-oss-20b"
+
+parser.add_argument("--system", default="You are a helpful assistant. Answer in txt format.")
+parser.add_argument("--model", default="openai/gpt-oss-20b")
+parser.add_argument("--reasoning_effort", default="low")
+args = parser.parse_args()
+
 messages = [
-    {
-        "role": "system",
-        "content": "Answer user question under 200 words only."  
-    }
+    { "role": "system", "content": args.system }
 ]
 
 # Calling Function
 def chatbot():
-    stream = client.chat.completions.create(model=model, messages=messages, stream=True, reasoning_effort="low",)
+    stream = client.chat.completions.create(
+        model=args.model,
+        messages=messages,
+        stream=True,
+        stream_options={"include_usage": True},
+        reasoning_effort=args.reasoning_effort,
+    )
 
     reply = ""
     for chunk in stream:
         if not chunk.choices:
             continue
         
+        # print("Chunk: ", chunk)
         text = chunk.choices[0].delta.content
+        usage = chunk.usage
         
         if text:
             print(text, end="", flush=True)
             reply += text
         
+        if usage:
+            print()
+            print("Prompt Tokens: ", usage.prompt_tokens)
+            print("Completion Tokens: ", usage.completion_tokens)
+            
     print()
     assistant_message = {
         "role": "assistant",
