@@ -34,7 +34,7 @@ You learn each idea by building something that needs it, not by reading about it
 
 | Phase | Weeks | Project you ship | Status | Started | Finished |
 |---|---|---|---|---|---|
-| 0. Setup | 1 | `chat.py`, a terminal chatbot | Not started | | |
+| 0. Setup | 1 | `chat.py`, a terminal chatbot | Done | 2026-10-22 | 2026-10-26 |
 | 1. LLM app basics | 2–3 | Full-stack ChatGPT clone | Not started | | |
 | 2. Embeddings and search | 4–5 | Semantic and hybrid search API | Not started | | |
 | 3. RAG and evals | 6–9 | Chat with your docs, plus an eval table | Not started | | |
@@ -100,12 +100,12 @@ You learn each idea by building something that needs it, not by reading about it
 - [1] `git init` the `learning-ai` folder and push it to a public GitHub repo (it becomes your portfolio)
 
 ### Python for JS developers (skip what you know)
-- [ ] uv and virtual environments vs npm and `node_modules`
-- [ ] List and dict comprehensions, f-strings, slicing
-- [ ] Type hints, dataclasses and Pydantic models (Python's equivalent of Zod)
-- [ ] `async`/`await` and `asyncio` in Python
-- [ ] Generators and `yield` (you need these for streaming)
-- [ ] Jupyter basics: run cells, restart the kernel, use a notebook as your experiment lab
+- [1] uv and virtual environments vs npm and `node_modules`
+- [1] List and dict comprehensions, f-strings, slicing
+- [1] Type hints, dataclasses and Pydantic models (Python's equivalent of Zod)
+- [1] `async`/`await` and `asyncio` in Python
+- [1] Generators and `yield` (you need these for streaming)
+- [1] Jupyter basics: run cells, restart the kernel, use a notebook as your experiment lab
 
 ### Build: `chat.py`
 - [1] One API call: use the `openai` SDK with `base_url="https://api.groq.com/openai/v1"` and your Groq key, send "hello", print the reply
@@ -121,7 +121,7 @@ You learn each idea by building something that needs it, not by reading about it
 - [1] Clear `messages` mid-chat, watch the model "forget", and write one line on why
 - [1] Ask `llama-3.1-8b-instant` and `openai/gpt-oss-120b` the same 5 questions; compare quality and tokens per second
 - [1] Ask a local Ollama model the same 5 questions; compare it with Groq on quality and speed
-- [ ] Make calls in a tight loop until you hit a 429 rate-limit error; read the response headers that say when to retry
+- [0] Make calls in a tight loop until you hit a 429 rate-limit error; read the response headers that say when to retry
 - [1] Tokenize an English sentence, code, JSON, emoji and non-English text with tiktoken; compare token counts
 
 ### You can explain
@@ -563,7 +563,7 @@ Practice each one out loud in 45 minutes: requirements → architecture → retr
 
 | Week | Dates | Hours | What I built or shipped | Numbers that changed | Stuck on |
 |---|---|---|---|---|---|
-| 1 | | | | | |
+| 1 | 2026-10-22 – 2026-10-26 | | `chat.py`: streaming terminal chatbot on Groq (gpt-oss-20b/120b) and local Ollama (llama3.1:8b), with CLI flags and per-turn tokens and cost | Groq ~500–960 tok/s vs local ~25 tok/s; "hello" = 86 prompt tokens on gpt-oss vs 27 on Llama | gpt-oss reasoning used all 2,048 output tokens (`finish_reason: "length"`) until `reasoning_effort="low"` |
 | 2 | | | | | |
 | 3 | | | | | |
 | 4 | | | | | |
