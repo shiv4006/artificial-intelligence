@@ -147,10 +147,10 @@ You learn each idea by building something that needs it, not by reading about it
 - [1] Model choice per conversation (a fast, cheap model like `llama-3.1-8b-instant` vs a smart one like `openai/gpt-oss-120b`)
 
 ### Build: ChatGPT clone (frontend, Next.js)
-- [ ] Chat UI that renders tokens as they stream in
-- [ ] Markdown and code-block rendering in replies
-- [ ] Conversation sidebar, a new-chat button, and a stop button (abort the fetch)
-- [ ] Token count and cost shown for each message
+- [1] Chat UI that renders tokens as they stream in
+- [1] Markdown and code-block rendering in replies
+- [1] Conversation sidebar, a new-chat button, and a stop button (abort the fetch)
+- [1] Token count and cost shown for each message
 
 ### Context window management
 - [ ] Count the tokens in the whole history before each call
