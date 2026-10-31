@@ -1,5 +1,8 @@
 import json
+import anyio
+import openai
 from uuid import UUID
+
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
@@ -33,6 +36,7 @@ async def chat(conversation_id: UUID, body: ChatRequest):
         reply = ""
         usage = {}
         finish_reason = None
+        completed = False
         try:
             async for kind, value in llm.stream_chat(model, messages):
                 if kind == "token":
@@ -42,9 +46,20 @@ async def chat(conversation_id: UUID, body: ChatRequest):
                     usage = value
                 elif kind == "finish":
                     finish_reason = value
+            completed = True
+        except openai.RateLimitError as exc:
+            wait = exc.response.headers.get("retry-after", "a few")
+            yield sse({"type": "error", "message": f"Groq rate limit reached. Try again in {wait} seconds."})
+            return
         except Exception as exc:
             yield sse({"type": "error", "message": str(exc)})
             return
+        finally:
+            # Stopped by the client, or failed mid-reply: keep the text that was already streamed.
+            if not completed and reply:
+                with anyio.CancelScope(shield=True):
+                    async with pool.connection() as conn:
+                        await repo.add_message(conn, conversation_id, "assistant", reply, model=model)
         
         cost = cost_usd(model, usage["prompt_tokens"], usage["completion_tokens"]) if usage else None
         async with pool.connection() as conn:

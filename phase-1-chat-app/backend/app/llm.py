@@ -5,7 +5,7 @@ from openai import AsyncOpenAI
 
 from app.config import settings
 
-client = AsyncOpenAI(api_key=settings.groq_api_key, base_url=settings.groq_base_url)
+client = AsyncOpenAI(api_key=settings.groq_api_key, base_url=settings.groq_base_url, max_retries=0)
 
 async def stream_chat(model: str, messages: list[dict]) -> AsyncIterator[tuple[str, Any]]:
     """Yield ("token", text) for each piece of the reply, then ("finish", reason) and ("usage", {...})."""
