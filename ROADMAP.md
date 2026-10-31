@@ -35,7 +35,7 @@ You learn each idea by building something that needs it, not by reading about it
 | Phase | Weeks | Project you ship | Status | Started | Finished |
 |---|---|---|---|---|---|
 | 0. Setup | 1 | `chat.py`, a terminal chatbot | Done | 2026-10-22 | 2026-10-26 |
-| 1. LLM app basics | 2–3 | Full-stack ChatGPT clone | Not started | | |
+| 1. LLM app basics | 2–3 | Full-stack ChatGPT clone | In progress | 2026-10-31 | |
 | 2. Embeddings and search | 4–5 | Semantic and hybrid search API | Not started | | |
 | 3. RAG and evals | 6–9 | Chat with your docs, plus an eval table | Not started | | |
 | 4. Agents and MCP | 10–13 | Data analyst agent and an MCP server | Not started | | |
@@ -141,10 +141,10 @@ You learn each idea by building something that needs it, not by reading about it
 **Guide:** [GUIDE.md → Phase 1](GUIDE.md#phase-1--llm-app-basics)
 
 ### Build: ChatGPT clone (backend, FastAPI)
-- [ ] `POST /chat` endpoint that streams over server-sent events (`StreamingResponse`)
-- [ ] Postgres tables: `conversations` and `messages` (role, content, tokens, cost, created_at)
-- [ ] Load the conversation history from the database on each request
-- [ ] Model choice per conversation (a fast, cheap model like `llama-3.1-8b-instant` vs a smart one like `openai/gpt-oss-120b`)
+- [1] `POST /chat` endpoint that streams over server-sent events (`StreamingResponse`)
+- [1] Postgres tables: `conversations` and `messages` (role, content, tokens, cost, created_at)
+- [1] Load the conversation history from the database on each request
+- [1] Model choice per conversation (a fast, cheap model like `llama-3.1-8b-instant` vs a smart one like `openai/gpt-oss-120b`)
 
 ### Build: ChatGPT clone (frontend, Next.js)
 - [ ] Chat UI that renders tokens as they stream in
