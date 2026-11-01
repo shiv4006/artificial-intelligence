@@ -1,11 +1,18 @@
 from datetime import datetime
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import AfterValidator, BaseModel, Field
 
-# Keep in sync with PRICES in pricing.py
-ModelName = Literal["openai/gpt-oss-20b", "openai/gpt-oss-120b"]
+from app.pricing import model_prices
+
+def known_model(model: str) -> str:
+    if model not in model_prices():
+        raise ValueError(f"Unknown model. Choose one of: {', '.join(model_prices())}")
+    return model
+
+# A model name that must be one the app offers (Groq models plus OLLAMA_MODELS from .env).
+ModelName = Annotated[str, AfterValidator(known_model)]
 
 class ConversationCreate(BaseModel):
     title: str = "New chat"

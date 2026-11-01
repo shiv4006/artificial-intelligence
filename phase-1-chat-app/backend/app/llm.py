@@ -5,7 +5,12 @@ from openai import AsyncOpenAI
 
 from app.config import settings
 
-client = AsyncOpenAI(api_key=settings.groq_api_key, base_url=settings.groq_base_url, max_retries=0)
+groq_client = AsyncOpenAI(api_key=settings.groq_api_key, base_url=settings.groq_base_url, max_retries=0)
+# Ollama ignores the API key, but the SDK requires one.
+ollama_client = AsyncOpenAI(api_key="ollama", base_url=settings.ollama_base_url, max_retries=0)
+
+def provider_for(model: str) -> str:
+    return "ollama" if model in settings.ollama_models else "groq"
 
 async def stream_chat(model: str, messages: list[dict]) -> AsyncIterator[tuple[str, Any]]:
     """Yield ("token", text) for each piece of the reply, then ("finish", reason) and ("usage", {...})."""
@@ -13,6 +18,7 @@ async def stream_chat(model: str, messages: list[dict]) -> AsyncIterator[tuple[s
     if model.startswith("openai/gpt-oss"):
         extra["reasoning_effort"] = "low"
     
+    client = ollama_client if provider_for(model) == "ollama" else groq_client
     stream = await client.chat.completions.create(
         model=model,
         messages=messages,
