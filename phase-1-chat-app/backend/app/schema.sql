@@ -21,3 +21,7 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 
 CREATE INDEX IF NOT EXISTS messages_conversation_idx ON messages (conversation_id, id);
+
+-- Strategy B (summarize): the running summary, and the id of the last message folded into it.
+ALTER TABLE conversations ADD COLUMN IF NOT EXISTS summary TEXT;
+ALTER TABLE conversations ADD COLUMN IF NOT EXISTS summarized_through BIGINT;

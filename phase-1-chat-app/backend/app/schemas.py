@@ -43,6 +43,7 @@ class Message(BaseModel):
     created_at: datetime
     
 class ConversationDetail(Conversation):
+    summary: str | None = None
     messages: list[Message]
     
 class ChatRequest(BaseModel):

@@ -70,3 +70,9 @@ async def add_message(
     message = await cur.fetchone()
     await conn.execute("UPDATE conversations SET updated_at = now() WHERE id = %s", (conversation_id,))
     return message
+
+async def save_summary(conn: AsyncConnection, conversation_id: UUID, summary: str, summarized_through: int) -> None:
+    await conn.execute(
+        "UPDATE conversations SET summary = %s, summarized_through = %s WHERE id = %s",
+        (summary, summarized_through, conversation_id),
+    )
