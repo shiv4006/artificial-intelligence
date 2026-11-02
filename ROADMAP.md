@@ -153,11 +153,11 @@ You learn each idea by building something that needs it, not by reading about it
 - [1] Token count and cost shown for each message
 
 ### Context window management
-- [ ] Count the tokens in the whole history before each call
-- [ ] Strategy A, sliding window: keep only the last N messages
-- [ ] Strategy B, summarize: fold older messages into a running summary
-- [ ] Test both: in a 40-turn chat, ask about something from turn 2
-- [ ] Auto-title conversations with a cheap model call
+- [1] Count the tokens in the whole history before each call
+- [1] Strategy A, sliding window: keep only the last N messages
+- [1] Strategy B, summarize: fold older messages into a running summary
+- [1] Test both: in a 40-turn chat, ask about something from turn 2
+- [1] Auto-title conversations with a cheap model call
 
 ### Structured output
 - [ ] `POST /extract`: paste invoice or receipt text, get JSON back (vendor, date, line items, total), checked with Pydantic
